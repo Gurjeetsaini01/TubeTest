@@ -1,0 +1,27 @@
+name: Generate Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run script
+        run: python floating_letters.py
+
+      - name: Upload image
+        uses: actions/upload-artifact@v4
+        with:
+          name: output-image
+          path: output.png
